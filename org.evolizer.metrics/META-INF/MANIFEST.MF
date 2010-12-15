@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Evolizer Metrics Plug-in
+Bundle-SymbolicName: org.evolizer.metrics;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.evolizer.metrics.EvolizerMetricsPlugin
+Bundle-Vendor: Michael Würsch @ S.E.A.L.
+Require-Bundle: org.eclipse.core.runtime,
+ org.evolizer.core.hibernate;bundle-version="2.0.0",
+ org.evolizer.core;bundle-version="2.0.0",
+ org.evolizer.core.util;bundle-version="2.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: org.evolizer.metrics.store,
+ org.evolizer.metrics.store.exceptions

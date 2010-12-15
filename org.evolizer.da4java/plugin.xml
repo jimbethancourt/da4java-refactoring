@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	
+	
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.evolizer.core.ui.menu?after=features">
+         <menu
+               icon="icons/da4javalogo-simple.gif"
+               id="org.evolizer.da4java.menu"
+               label="da4java">
+            <separator 
+            	name="org.evolizer.da4java.group_separator"
+            	visible="false">
+            </separator>
+            <visibleWhen checkEnabled="false">
+            	<with variable="selection">
+            		<iterate
+            				ifEmpty="false"
+            				operator="and">
+            			<adapt type="org.eclipse.core.runtime.IAdaptable">
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+			<command
+					commandId="org.evolizer.da4java.showgraph"
+					style="push">
+               <visibleWhen checkEnabled="false">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <or>
+                        <adapt type="org.eclipse.core.resources.IResource">
+	                      <test
+	                            property="org.eclipse.core.resources.projectNature"
+	                            value="org.evolizer.core.natures.evolizerNature">
+	                      </test>
+                        </adapt>
+	                     <adapt type="org.eclipse.jdt.core.IMember">
+	                     </adapt>
+                     </or>
+                  </iterate>
+               </visibleWhen>
+			</command>
+			<command
+					commandId="org.evolizer.da4java.addtograph"
+					style="push">
+               <visibleWhen checkEnabled="false">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <or>
+                        <adapt type="org.eclipse.core.resources.IResource">
+	                      <test
+	                            property="org.eclipse.core.resources.projectNature"
+	                            value="org.evolizer.core.natures.evolizerNature">
+	                      </test>
+                        </adapt>
+	                     <adapt type="org.eclipse.jdt.core.IMember">
+	                     </adapt>
+                     </or>
+                  </iterate>
+               </visibleWhen>
+			</command>
+         </menu>
+	  </menuContribution>
+   </extension>
+   <extension point="org.eclipse.ui.commands">
+      <category
+            id="org.evolizer.da4java.commands"
+            name="da4java Commands">
+      </category>
+      <command
+            categoryId="org.evolizer.da4java.commands"
+            id="org.evolizer.da4java.showgraph"
+            name="Show in new Graph">
+      </command>
+      <command
+            categoryId="org.evolizer.da4java.commands"
+            id="org.evolizer.da4java.addtograph"
+            name="Add to Graph">
+      </command>
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler
+            class="org.evolizer.da4java.plugin.actions.LoadAndShowGraphAction"
+            commandId="org.evolizer.da4java.showgraph">
+      </handler>
+      <handler
+            class="org.evolizer.da4java.plugin.actions.AddSelectedEntitiesAction"
+            commandId="org.evolizer.da4java.addtograph">
+      </handler>
+   </extension>
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            class="org.evolizer.da4java.plugin.DA4JavaGraphEditor"
+            default="false"
+            icon="icons/da4javalogo-simple.gif"
+            id="org.evolizer.da4java.view.graph.panel.DA4JavaGraphEditor"
+            name="da4java Editor"/>
+   </extension>
+    <extension point="org.eclipse.ui.views">
+      <category
+            id="org.evolizer.da4java.views"
+            name="da4java">
+      </category>
+      <view
+            allowMultiple="false"
+            category="org.evolizer.da4java.views"
+            class="org.evolizer.da4java.polymetricviews.PolymetricViewControllerView"
+            icon="icons/da4javalogo-simple.gif"
+            id="org.evolizer.da4java.polymetricviews.PolymetricViewControllerView"
+            name="Polymetric View Controller">
+      </view>
+      <view
+            allowMultiple="false"
+            category="org.evolizer.da4java.views"
+            class="org.evolizer.da4java.visibility.AssociationVisibilityView"
+            icon="icons/da4javalogo-simple.gif"
+            id="org.evolizer.da4java.visibility.AssociationVisibilityControllerView"
+            name="Association Visibility">
+      </view>
+      <view
+            allowMultiple="false"
+            category="org.evolizer.da4java.views"
+            class="org.evolizer.da4java.visibility.EntityVisibilityView"
+            icon="icons/da4javalogo-simple.gif"
+            id="org.evolizer.da4java.visibility.EntityVisibilityControllerView"
+            name="Entity Visibility">
+      </view>
+      <view
+            allowMultiple="false"
+            category="org.evolizer.da4java.views"
+            class="org.evolizer.da4java.birdseye.BirdsEyeView"
+            icon="icons/da4javalogo-simple.gif"
+            id="org.evolizer.da4java.birdseye.BirdsEyeView"
+            name="Birdseye">
+      </view>
+   </extension>
+   <extension point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.evolizer.da4java.plugin.DA4JavaPerspective"
+            icon="icons/da4javalogo-simple.gif"
+            id="org.evolizer.da4java.view.DA4JavaPerspective"
+            name="da4java">
+      </perspective>
+   </extension>
+</plugin>

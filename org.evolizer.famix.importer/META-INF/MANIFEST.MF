@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FAMIX Java Importer
+Bundle-SymbolicName: org.evolizer.famix.importer;singleton:=true
+Bundle-Version: 2.0.0
+Bundle-Activator: org.evolizer.famix.importer.FamixImporterPlugin
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.3.0",
+ org.eclipse.jdt.core;bundle-version="3.3.0",
+ org.evolizer.famix.model;bundle-version="2.0.0",
+ org.evolizer.core.util;bundle-version="2.0.0",
+ org.evolizer.core;bundle-version="2.0.0",
+ org.evolizer.core.hibernate;bundle-version="2.0.0",
+ org.evolizer.core.logging;bundle-version="2.0.0",
+ org.eclipse.core.resources;bundle-version="3.3.0",
+ org.evolizer.model.resources;bundle-version="2.0.0",
+ org.eclipse.ui;bundle-version="3.5.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: org.evolizer.famix.importer,
+ org.evolizer.famix.importer.jobs,
+ org.evolizer.famix.importer.nodehandler,
+ org.evolizer.famix.importer.unresolved,
+ org.evolizer.famix.importer.util
+Bundle-Vendor: s.e.a.l. - University of Zurich, Switzerland
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
