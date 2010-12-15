@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.evolizer.core.hibernate.modelProvider">
+      <model
+            class="org.evolizer.metrics.model.EvolizerMetricsModelProvider"
+            name="org.evolizer.metrics.modelprovider">
+      </model>
+   </extension>
+
+</plugin>

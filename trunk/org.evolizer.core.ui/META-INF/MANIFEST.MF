@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Evolizer Core UI
+Bundle-SymbolicName: org.evolizer.core.ui; singleton:=true
+Bundle-Version: 2.0.0
+Bundle-Activator: org.evolizer.core.ui.EvolizerUIPlugin
+Bundle-Vendor: s.e.a.l. - University of Zurich, Switzerland
+Require-Bundle: org.eclipse.ui;bundle-version="3.3.0",
+ org.eclipse.core.runtime;bundle-version="3.3.0",
+ org.evolizer.core;bundle-version="2.0.0",
+ org.eclipse.ui.ide;bundle-version="3.3.0",
+ org.eclipse.core.resources;bundle-version="3.3.0",
+ org.eclipse.team.core;bundle-version="3.3.0",
+ org.eclipse.team.cvs.core;bundle-version="3.3.0",
+ org.evolizer.core.util;bundle-version="2.0.0",
+ org.evolizer.core.hibernate;bundle-version="2.0.0",
+ org.eclipse.jdt.ui;bundle-version="3.3.0",
+ org.evolizer.core.logging;bundle-version="2.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
