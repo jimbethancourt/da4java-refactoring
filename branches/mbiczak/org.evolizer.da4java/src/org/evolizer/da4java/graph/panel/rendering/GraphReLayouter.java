@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 import org.evolizer.da4java.DA4JavaPlugin;
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
 import org.evolizer.da4java.commands.selection.AbstractSelectionStrategy;
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.DependencyGraphSingleton;
 import org.evolizer.da4java.graph.data.GraphManager;
 

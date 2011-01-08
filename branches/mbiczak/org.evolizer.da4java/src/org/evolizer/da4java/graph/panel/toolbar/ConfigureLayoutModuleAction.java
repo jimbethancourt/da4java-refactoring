@@ -20,7 +20,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.GraphManager;
 
 import y.option.OptionHandler;
