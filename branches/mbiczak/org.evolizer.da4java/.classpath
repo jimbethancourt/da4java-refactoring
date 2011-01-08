@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins">
+		<accessrules>
+			<accessrule kind="accessible" pattern="seal/dependencyanalyzer/integrator/*"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/y.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-base.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphics2d.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-cgm.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-emf.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-gif.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-java.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-pdf.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-ppm.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-ps.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-svg.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-swf.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.2.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
