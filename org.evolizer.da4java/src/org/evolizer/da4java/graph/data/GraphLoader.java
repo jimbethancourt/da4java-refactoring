@@ -45,7 +45,7 @@ public class GraphLoader {
     private static Logger sLogger = DA4JavaPlugin.getLogManager().getLogger(GraphLoader.class.getName());
 
     /** Reference to the Graph2D that is populated by the GraphLoader. */
-    private DependencyGraph fGraph;
+    private GraphManager fGraph;
 
     /** the graph loader loads the graph of a certain snapshot whose data is fetched by the snapshot analyzer. */
     private SnapshotAnalyzer fSnapshotAnalyzer;
@@ -67,7 +67,7 @@ public class GraphLoader {
      * 
      * @param graph the graph
      */
-    public void initGraph(DependencyGraph graph) {
+    public void initGraph(GraphManager graph) {
         fGraph = graph;
         fHierarchyManager = new HierarchyManager(getGraph());
     }
@@ -346,8 +346,8 @@ public class GraphLoader {
         AbstractFamixEntity parent = entity.getParent();
         if (parent != null) {
             if (fGraph.contains(parent) && fGraph.contains(entity)) {
-                Node parentNode = fGraph.getNode(parent);
-                Node childNode = fGraph.getNode(entity);
+                Node parentNode = fGraph.getGraphModelMapper().getNode(parent);
+                Node childNode = fGraph.getGraphModelMapper().getNode(entity);
                 if (!parentNode.equals(fHierarchyManager.getParentNode(childNode))) {
                     fHierarchyManager.setParentNode(childNode, parentNode);
                     sLogger.debug("reassigned node '" + childNode + "' to parent '" + parentNode + "'");
@@ -394,17 +394,10 @@ public class GraphLoader {
      * DependencyGraphLoader. Note that in the current Graph2D some
      * nodes and edges may be hidden.
      */
-    public DependencyGraph getGraph() {
+    public GraphManager getGraph() {
         return fGraph;
     }
-    
-    public GraphModelMapper getGraphModelMapper() {
-    	return fGraphModelMapper;
-    }
-    
-    public GraphManager getGraphManager(){
-    	return fGraphManager;
-    }
+
     /**
      * Gets the snapshot analyzer.
      * 

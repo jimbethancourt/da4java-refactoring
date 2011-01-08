@@ -67,8 +67,8 @@ public class FilterSelectedEntities extends AbstractGraphFilterCommand {
 
             initExecutionSelectionStrategy();
 
-            List<FamixAssociation> associationsToRemove = getGraphLoader().getGraph().getFamixAssociations(getEdgesFromSelection());
-            List<AbstractFamixEntity> entitiesToRemove = getGraphLoader().getGraph().getFamixEntities(getNodesFromSelection());
+            List<FamixAssociation> associationsToRemove = getGraphLoader().getGraph().getGraphModelMapper().getFamixAssociations(getEdgesFromSelection());
+            List<AbstractFamixEntity> entitiesToRemove = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntities(getNodesFromSelection());
 
             for (NodeCursor nc = getGraphLoader().getGraph().nodes(); nc.ok(); nc.next()) {
                 getEdgeGrouper().reinsertLowLevelEdges(nc.node());

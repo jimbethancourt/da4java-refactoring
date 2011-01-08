@@ -92,7 +92,7 @@ public class FilterInternalDependenciesOfNode extends AbstractGraphFilterCommand
      * @return the entities to remove
      */
     protected Set<AbstractFamixEntity> getEntitiesToRemove() {
-        AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(fSelectedNode);
+        AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(fSelectedNode);
 
         List<AbstractFamixEntity> descendants = getGraphLoader().getSnapshotAnalyzer().getDescendants(entity);
         descendants.remove(entity);
@@ -102,7 +102,7 @@ public class FilterInternalDependenciesOfNode extends AbstractGraphFilterCommand
 
         Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(descendants);
         for (FamixAssociation association : associationsToOtherEntities) {
-            Edge edge = getGraphLoader().getGraph().getEdge(association);
+            Edge edge = getGraphLoader().getGraph().getGraphModelMapper().getEdge(association);
             if (edge != null) {
                 AbstractFamixEntity from = association.getFrom();
                 AbstractFamixEntity to = association.getTo();
@@ -127,7 +127,7 @@ public class FilterInternalDependenciesOfNode extends AbstractGraphFilterCommand
     protected Set<FamixAssociation> getAssociationsToRemove() {
         Set<FamixAssociation> associationsToRemove = new HashSet<FamixAssociation>();
 
-        AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(fSelectedNode);
+        AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(fSelectedNode);
 
         List<AbstractFamixEntity> descendants = getGraphLoader().getSnapshotAnalyzer().getDescendants(entity);
         associationsToRemove.addAll(getGraphLoader().getSnapshotAnalyzer().queryAssociationsBetweenEntities(descendants, null));

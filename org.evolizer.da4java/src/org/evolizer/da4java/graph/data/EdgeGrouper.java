@@ -54,14 +54,14 @@ public class EdgeGrouper {
     private static Logger sLogger = DA4JavaPlugin.getLogManager().getLogger(EdgeGrouper.class.getName());
 
     /** The graph. */
-    private DependencyGraph fGraph;
+    private GraphManager fGraph;
 
     /**
      * Instantiates a new edge grouper.
      * 
      * @param graph the graph
      */
-    public EdgeGrouper(DependencyGraph graph) {
+    public EdgeGrouper(GraphManager graph) {
         fGraph = graph;
     }
 
@@ -105,7 +105,7 @@ public class EdgeGrouper {
 
         List<Edge> inOutEdges = getInOutEdges(node);
         for (Edge edge : inOutEdges) {
-            List<Edge> lowLevelEdges = fGraph.getLowLevelEdges(edge);
+            List<Edge> lowLevelEdges = fGraph.getGraphModelMapper().getLowLevelEdges(edge);
             if (lowLevelEdges != null && lowLevelEdges.size() > 0) {
                 for (Edge lowLevelEdge : lowLevelEdges) {
                     Edge reinsertedEdge = fGraph.reinsertLowLevelEdge(lowLevelEdge);
@@ -200,7 +200,7 @@ public class EdgeGrouper {
 
         // get list of lower level edges per edge type
         for (Edge edge : edges) {
-            FamixAssociation association = fGraph.getAssociation(edge);
+            FamixAssociation association = fGraph.getGraphModelMapper().getAssociation(edge);
             if (association != null) {
                 List<Edge> edgeList;
                 if (typeToEdgeListMap.containsKey(association.getType())) {
@@ -332,6 +332,6 @@ public class EdgeGrouper {
      * @return the aggregated edge map
      */
     private EdgeMap getAggregatedEdgeMap() {
-        return fGraph.getAggregatedEdgeMap();
+        return fGraph.getGraphModelMapper().getAggregatedEdgeMap();
     }
 }

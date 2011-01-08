@@ -22,6 +22,7 @@ import java.util.Set;
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
 import org.evolizer.da4java.commands.EditResult;
 import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.famix.model.entities.AbstractFamixEntity;
 
 import y.base.Node;
@@ -50,11 +51,11 @@ public class SelectEditedEntities extends AbstractSelectionStrategy {
         Set<Node> nodesToSelect = new HashSet<Node>();
 
         EditResult editResult = getCommand().getEditResult();
-        DependencyGraph graph = getCommand().getGraphLoader().getGraph();
+        GraphManager graph = getCommand().getGraphLoader().getGraph();
 
         if (!editResult.isEmpty()) {
             for (AbstractFamixEntity entity : editResult.getEntities()) {
-                Node node = graph.getNode(entity);
+                Node node = graph.getGraphModelMapper().getNode(entity);
                 if (node != null) {
                     nodesToSelect.add(node);
                 }
