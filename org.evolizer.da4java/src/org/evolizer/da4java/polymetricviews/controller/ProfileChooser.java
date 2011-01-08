@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.evolizer.da4java.polymetricviews;
+package org.evolizer.da4java.polymetricviews.controller;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.evolizer.da4java.DA4JavaPlugin;
 import org.evolizer.da4java.plugin.DA4JavaGraphEditor;
+import org.evolizer.da4java.polymetricviews.PolymetricViewControllerView;
 import org.evolizer.da4java.polymetricviews.model.PolymetricViewProfile;
 import org.evolizer.da4java.visibility.ViewConfigModel;
 import org.w3c.dom.Document;

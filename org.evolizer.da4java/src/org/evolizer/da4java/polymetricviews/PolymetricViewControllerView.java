@@ -40,6 +40,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.evolizer.da4java.DA4JavaPlugin;
 import org.evolizer.da4java.plugin.DA4JavaGraphEditor;
+import org.evolizer.da4java.polymetricviews.controller.ProfileChooser;
 import org.evolizer.da4java.polymetricviews.model.PolymetricViewProfile;
 import org.evolizer.da4java.visibility.ViewConfigModel;
 import org.evolizer.metrics.store.MetricStore;
@@ -199,12 +200,12 @@ public class PolymetricViewControllerView extends ViewPart {
     }
 
     /**
-     * Select the corresponding entry in the given combo box.
+     * Select the corresponding entry in the given combo box. A helper method.
      * 
      * @param combo the combo
      * @param entry the name of the combo box entry
      */
-    void select(Combo combo, String entry) {
+    public void select(Combo combo, String entry) {
         if (entry != null && entry.length() > 0) {
             for (int index = 0; index < combo.getItemCount(); index++) {
                 if (combo.getItem(index).equalsIgnoreCase(entry)) {
