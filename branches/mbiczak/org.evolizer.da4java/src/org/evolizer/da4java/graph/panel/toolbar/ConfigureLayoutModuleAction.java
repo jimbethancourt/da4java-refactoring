@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.GraphManager;
 
 import y.option.OptionHandler;
 
@@ -35,14 +36,14 @@ public class ConfigureLayoutModuleAction extends AbstractAction {
     private static final long serialVersionUID = -282121307067700221L;
     
     /** The graph panel. */
-    private final DependencyGraph fGraph;
+    private final GraphManager fGraph;
 
     /**
      * The constructor.
      * 
      * @param graph the graph
      */
-    public ConfigureLayoutModuleAction(DependencyGraph graph) {
+    public ConfigureLayoutModuleAction(GraphManager graph) {
         super("ConfigureLayoutModuleAction");
         fGraph = graph;
     }

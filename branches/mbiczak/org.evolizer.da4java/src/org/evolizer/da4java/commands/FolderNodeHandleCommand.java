@@ -52,7 +52,7 @@ public class FolderNodeHandleCommand extends AbstractGraphEditCommand {
     public FolderNodeHandleCommand(GraphLoader graphLoader, EdgeGrouper edgeGrouper, Node node, boolean isOpenCommand) {
         super(graphLoader, edgeGrouper);
 //        fSelectedNode = node;
-        fSelectedEntity = graphLoader.getGraph().getFamixEntity(node);
+        fSelectedEntity = graphLoader.getGraph().getGraphModelMapper().getFamixEntity(node);
         this.fIsOpenCommand = isOpenCommand;
     }
 
@@ -60,7 +60,7 @@ public class FolderNodeHandleCommand extends AbstractGraphEditCommand {
      * {@inheritDoc}
      */
     public void execute() {
-        Node selectedNode = getGraphLoader().getGraph().getNode(fSelectedEntity);
+        Node selectedNode = getGraphLoader().getGraph().getGraphModelMapper().getNode(fSelectedEntity);
         if (fIsOpenCommand) {
             openFolder(selectedNode);
         } else {
@@ -79,7 +79,7 @@ public class FolderNodeHandleCommand extends AbstractGraphEditCommand {
      * {@inheritDoc}
      */
     public void undo() {
-        Node selectedNode = getGraphLoader().getGraph().getNode(fSelectedEntity);
+        Node selectedNode = getGraphLoader().getGraph().getGraphModelMapper().getNode(fSelectedEntity);
         if (fIsOpenCommand) {
             closeGroup(selectedNode);
         } else {

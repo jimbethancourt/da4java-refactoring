@@ -87,7 +87,7 @@ public class KeepSelectedDependencies extends AbstractGraphFilterCommand {
      * @return The set of FAMIX entities to remove from the graph.
      */
     protected Set<AbstractFamixEntity> getEntitiesToRemove() {
-        List<FamixAssociation> associations = getGraphLoader().getGraph().getFamixAssociations(fSelectedEdges);
+        List<FamixAssociation> associations = getGraphLoader().getGraph().getGraphModelMapper().getFamixAssociations(fSelectedEdges);
         Set<AbstractFamixEntity> involvedEntities = new HashSet<AbstractFamixEntity>();
         for (FamixAssociation association : associations) {
             involvedEntities.add(association.getFrom());
@@ -102,7 +102,7 @@ public class KeepSelectedDependencies extends AbstractGraphFilterCommand {
         }
         remainingEntities.addAll(involvedEntities);
         
-        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getAllFamixEntities());
+        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getGraphModelMapper().getAllFamixEntities());
         entitiesToRemove.removeAll(remainingEntities);
         
         return entitiesToRemove;
@@ -115,8 +115,8 @@ public class KeepSelectedDependencies extends AbstractGraphFilterCommand {
      * @return The set of FAMIX association to remove from the graph.
      */
     protected Set<FamixAssociation> getAssociationsToRemove() {
-        Set<FamixAssociation> associationsToRemove = new HashSet<FamixAssociation>(getGraphLoader().getGraph().getAllAssociations());
-        associationsToRemove.removeAll(getGraphLoader().getGraph().getFamixAssociations(fSelectedEdges));
+        Set<FamixAssociation> associationsToRemove = new HashSet<FamixAssociation>(getGraphLoader().getGraph().getGraphModelMapper().getAllAssociations());
+        associationsToRemove.removeAll(getGraphLoader().getGraph().getGraphModelMapper().getFamixAssociations(fSelectedEdges));
         
         return associationsToRemove;
     }

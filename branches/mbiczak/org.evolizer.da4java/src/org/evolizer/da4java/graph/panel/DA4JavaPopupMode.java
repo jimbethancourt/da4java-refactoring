@@ -479,7 +479,7 @@ public class DA4JavaPopupMode extends PopupMode {
          * {@inheritDoc}
          */
         public void actionPerformed(ActionEvent e) {
-            String info = getGraphLoader().getGraph().getEdgeInfo(fSelectedEdge);
+            String info = getGraphLoader().getGraph().getGraphModelMapper().getEdgeInfo(fSelectedEdge);
             JOptionPane.showMessageDialog(fGraphPanel.getView(), info);
         }
     }

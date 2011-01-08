@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
 import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.GraphManager;
 
 import y.base.Node;
 import y.base.NodeCursor;
@@ -53,7 +54,7 @@ public class SelectNodeAndInnerNodes extends AbstractSelectionStrategy {
     public void initSelection() {
         Set<Node> nodesToSelect = new HashSet<Node>();
 
-        DependencyGraph graph = getCommand().getGraphLoader().getGraph();
+        GraphManager graph = getCommand().getGraphLoader().getGraph();
 
         nodesToSelect.add(fFolderNode);
         for (NodeCursor nc = graph.getHierarchyManager().getChildren(fFolderNode); nc.ok(); nc.next()) {

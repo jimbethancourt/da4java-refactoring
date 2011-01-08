@@ -68,7 +68,7 @@ public class FilterNotConnectedNodes extends AbstractGraphFilterCommand {
     protected Set<AbstractFamixEntity> getEntitiesToRemove() {
         Set<AbstractFamixEntity> connectedEntities = new HashSet<AbstractFamixEntity>();
 
-        for (FamixAssociation association : getGraphLoader().getGraph().getAllAssociations()) {
+        for (FamixAssociation association : getGraphLoader().getGraph().getGraphModelMapper().getAllAssociations()) {
             if (!connectedEntities.contains(association.getFrom())) {
                 connectedEntities.add(association.getFrom());
             }
@@ -85,7 +85,7 @@ public class FilterNotConnectedNodes extends AbstractGraphFilterCommand {
             }
         }
 
-        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getAllFamixEntities());
+        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getGraphModelMapper().getAllFamixEntities());
         entitiesToRemove.removeAll(remainingEntities);
 
         return entitiesToRemove;

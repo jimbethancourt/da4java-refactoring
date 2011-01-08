@@ -100,7 +100,7 @@ public class NavigateToSourceCodeAction extends AbstractAction {
      * {@inheritDoc}
      */
     public void actionPerformed(ActionEvent event) {
-        AbstractFamixEntity entity = fGraphLoader.getGraph().getFamixEntity(fSelectedNode);
+        AbstractFamixEntity entity = fGraphLoader.getGraph().getGraphModelMapper().getFamixEntity(fSelectedNode);
         if (entity instanceof FamixClass) {
             AbstractFamixEntity parent = entity.getParent();
             if (parent != null) {

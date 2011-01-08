@@ -65,7 +65,7 @@ public class AddDescendantsAndDependencies extends AbstractGraphAddCommand {
 
             List<AbstractFamixEntity> selectedEntities = new ArrayList<AbstractFamixEntity>();
             for (Node node : fSelectedNodes) {
-                AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(node);
+                AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(node);
                 if (entity != null) {
                     selectedEntities.add(entity);
                 }

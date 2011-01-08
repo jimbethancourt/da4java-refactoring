@@ -26,6 +26,7 @@ import org.evolizer.core.exceptions.EvolizerException;
 import org.evolizer.da4java.DA4JavaPlugin;
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
 import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.da4java.graph.panel.DA4JavaGraphPanel;
 import org.evolizer.da4java.graph.panel.rendering.GraphReLayouter;
 import org.evolizer.da4java.polymetricviews.model.INormalizer;
@@ -144,7 +145,7 @@ public class PolymetricViewGraphUpdater implements PropertyChangeListener, Graph
     private void updateNodeRealizers(List<AbstractPolymetricViewUpdater> polyViewUpdater) {
         PolymetricViewDataContainer dataCollector = fGraphPanel.getPolymetricViewDataCollector();
         
-        DependencyGraph graph = fGraphPanel.getGraph();
+        GraphManager graph = fGraphPanel.getGraph();
         NodeMap map = graph.getRegisteredNodeMaps()[0];
         Node[] nodes = graph.getNodeArray();
         for (int i = 0; i < nodes.length; i++) {

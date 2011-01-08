@@ -60,12 +60,12 @@ public class KeepOutDependenciesOfNode extends AbstractKeepDependencies {
     protected List<AbstractFamixEntity> getDependentEntities() {
         Set<AbstractFamixEntity> dependentEntities = new HashSet<AbstractFamixEntity>();
 
-        AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(getSelectedNode());
+        AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(getSelectedNode());
         List<AbstractFamixEntity> descendants = getGraphLoader().getSnapshotAnalyzer().getDescendants(entity);
 
         List<? extends FamixAssociation> associationsToOtherEntities = getGraphLoader().getSnapshotAnalyzer().queryAssociationsOfEntities(descendants, getAssociationType(), "from");
         for (FamixAssociation association : associationsToOtherEntities) {
-            Edge edge = getGraphLoader().getGraph().getEdge(association);
+            Edge edge = getGraphLoader().getGraph().getGraphModelMapper().getEdge(association);
             if (edge != null) {
                 if (!dependentEntities.contains(association.getTo())) {
                     dependentEntities.add(association.getTo());
@@ -81,7 +81,7 @@ public class KeepOutDependenciesOfNode extends AbstractKeepDependencies {
      */
     @Override
     protected List<FamixAssociation> getAdditionalAssoctionsToRmove() {
-        AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(getSelectedNode());
+        AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(getSelectedNode());
         List<AbstractFamixEntity> descendants = getGraphLoader().getSnapshotAnalyzer().getDescendants(entity);
         List<FamixAssociation> associationsToOtherEntities = getGraphLoader().getSnapshotAnalyzer().queryAssociationsOfEntities(descendants, null, "to");
 
