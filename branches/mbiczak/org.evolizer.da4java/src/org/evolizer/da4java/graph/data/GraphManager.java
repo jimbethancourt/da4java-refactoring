@@ -33,13 +33,15 @@ public class GraphManager extends Graph2D {
 	/** The logger. */
     private static Logger sLogger = DA4JavaPlugin.getLogManager().getLogger(GraphManager.class.getName());
     
-    //CONSTR()
     public GraphManager() {
     	createNodeMap(); // node to FAMIX entity map
         createEdgeMap(); // edge to FAMIX association map
         createEdgeMap(); // high level to low level edges map
     }
     
+    public GraphModelMapper getGraphModelMapper() {
+    	return this.graphModelMapper;
+    }
     
     /**
      * Checks whether the current graph contains the given FAMIX entity.
