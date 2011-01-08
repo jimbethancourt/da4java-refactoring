@@ -1,0 +1,73 @@
+############################
+TODOS:
+# Features:
+* Do another main menu entry for keep-menu items anf move corresponding items from filter menu to it 
+*! Darstellung des Graphen auf Klassenebene (keine Packages - spart einige Klicks, Packages koennen dann wahlweise ein/ausgeblendet werden)
+*! Visualize cyclic dependencies (e.g., provide a cyclic dep. view with all cyclic dependencies in an implementation. The user then can select the dependency and visualize affected entities with DA4Java).
+* FAMIX sollte mehrere Snapshot speichern koennen, die dann von DA4Java fuer die Analyse verwendet werden koennen. Diese Funktionalitaet koennte dann auch vom FAMIX-Versioning
+Integrator Plug-in verwendet werden.
+*! Select edge and expand lower level edges
+* Bookmarking Feature hinzufuegen. Der Entwickler kann einen View bookmarken und zu diesem spaeter zurueckkehren (Bookmark speichert Knoten und Kanten des aktuellen Views)
+* Hinweisicon im geoeffneten Folder-Knoten, dass noch Entitaeten vorhanden sind, die imo nicht angezeigt werden. Durch Klick koennen diese Entitaeten hinzugefuegt werden
+* Improve search function to act like the Eclipse search (apfl-shift-T)
+* Color configurator for entities and relationships (integrate with visibility views). Use different colors for different association types instead of different arc types.
+* (partially done) Add data filters - e.g., to filter <init>, <clinit>, <oinit> methods or entities with parent=null
+* (done) Einbindung des Metrics-Plugins fuer die Darstellung von Polymetric Views, z.B. System Complexity View mit nested Graphs (das ist Neu!!!!)
+* (done) Select edge and keep only the edge and corresponding famix entities
+* (done) Add birds eye view on the graph to navigate large, complex graphs
+
+# Refactorings:
+* (not yet) Implement event notification for layout of graph. Currently, the yFiles events are used with PRE and POST. That seems to me rather complicated and too yFiles specific. For example, 
+the DependencyGraph class is notifying its listeners when a FAMIX entity has been added. In addition, we should add such events for all actions/modifications of the underlying FAMIX
+graph to make it easier when the graph is edited. Currently, there are also PRE and POST events by yFiles, when edges are aggregated. They are actually not modifications of the
+underlying FAMIX graph and should not lead to a re-layout of graphs. 
+* Refactor visibility views and move viewConfigModel object from GraphPanel to corresponding view classes.
+* Perform a check for duplicated code and optionally also a check with FindBugs.
+
+
+############################
+Improvements nach BA Mark Odermatt:
+* (done) Improve layout algorithm to prevent jumping nodes whenever the graph is layout
+* (done, but heuristic needs to be refined) When adding an entity from Eclipse IDE to the graph, expand folders down to that entity (currently the user has to do this manually)
+* (reject) Inherit Dependency Analyzer perspective from Java perspective (adding the editor and the three views)
+* (done) Check where is the zoom in/out with the mouse wheel button
+* (done) Add Tips to nodes and edges.
+* (done) Filter incoming/outgoing by association type
+* (reject) Combine Filter function with select function
+  first select entities (e.g., by incoming/outgoing associations), second filter selected entities
+
+Refactorings:
+* (done) Move hql query in method getSelectedEntities in class TextSelectionHandler.java to SnapshotAnalyzer
+* (done) Correct error in Undo-Redo Queue - replace two stacks by a double referenced list
+* (done for now) When loading selected entities, first check if we can connect to the database or if the evolizer nature is set
+  If not point the user to enabel the evolizer nature.
+  Next, check if the selected entities can be found in the database
+  It not point the user to entities that could not be loaded, and that the user should perform a FAMIX parser.
+
+############################
+Zusaetzliche Navigation Features fuer Dependency Analyzer
+
+Bugs:
+* (done) Edge-Grouping fehlt wenn Undo von Filter 
+* (done) From a method adding entities via in-coming dependencies results in also adding inheritance dependencies of the parent class  
+
+Major Features:
+Allgemein
+* (done) Alle Edit-Kommandos im Graph sollten als Command implementiert werden, um ein lueckenloses Undo/Redo zu erreichen
+* (done) Hinzufuegen und Filtern Funktionen bezueglich Dependencies von speziellem Typ
+
+Filter
+* (done) Filtern aller Kanten zwischen selektierten Knoten, Knoten und enthaltene Knoten bleiben im Graph erhalten
+* (done) Filter fuer Dependency Typen (z.B. mittels eigenem View, in dem die  Sichtbarkeit von Dependencies eingestellt werden kann
+* (done) Filtern aller node-internen dependencies von ausgewaehlten Nodes (done fuer einen selektierten Node)
+* (done-indirekt, gibt keine top-level packages mehr) Filter von Top-Level Packages (Einstellung, dass die gemeinsamen top-Level Packages nicht angezeigt werden)
+
+Hinzufuegen
+* (done) Hinzufuegen von Kanten zwischen selektieren Knoten 
+
+Navigation:
+
+Minor Features:
+* (done - project muss evolizer sein) Visualisierung von nicht-Evolizer Java Projekten. Beim ersten mal wird gefragt, eigenes Property-Sheet fuer DA, in dem die Datenbankverbindung angegeben wird. Das alte Modell sollte auch ueberschrieben werden koennen.  
+* (done) Hinzufuegen von Entitaeten in den Graphen mittels Jobs (done, needs to be checked)
+* Progress Monitor allgemein verbessern. Moeglichkeit des Abbrechens einbauen.
