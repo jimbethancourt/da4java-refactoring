@@ -22,7 +22,6 @@ import java.util.Set;
 
 import org.evolizer.core.exceptions.EvolizerException;
 import org.evolizer.core.util.collections.CompositeKey;
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.da4java.graph.panel.DA4JavaGraphPanel;
 import org.evolizer.da4java.polymetricviews.PolymetricViewControllerView;

@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.GraphManager;
 
 import y.base.Node;

@@ -23,7 +23,6 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.evolizer.da4java.commands.CommandController;
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.EdgeGrouper;
 import org.evolizer.da4java.graph.data.GraphLoader;
 import org.evolizer.da4java.graph.data.GraphManager;

@@ -23,7 +23,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.evolizer.da4java.DA4JavaPlugin;
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.famix.model.entities.AbstractFamixEntity;
 
