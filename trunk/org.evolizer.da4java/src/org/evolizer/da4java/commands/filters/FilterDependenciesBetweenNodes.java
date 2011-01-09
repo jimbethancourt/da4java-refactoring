@@ -72,7 +72,7 @@ public class FilterDependenciesBetweenNodes extends AbstractGraphFilterCommand {
      */
     public void execute() {
         setEditResult(new EditResult());
-        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getFamixEntities(fSelectedNodes);
+        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntities(fSelectedNodes);
         if (!entities.isEmpty()) {
             fireGraphPreEvent();
 

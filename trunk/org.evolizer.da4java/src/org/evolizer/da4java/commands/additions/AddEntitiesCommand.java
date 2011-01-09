@@ -22,9 +22,9 @@ import org.evolizer.da4java.commands.EditResult;
 import org.evolizer.da4java.commands.selection.AbstractSelectionStrategy;
 import org.evolizer.da4java.commands.selection.NopSelectionStrategy;
 import org.evolizer.da4java.commands.selection.SelectFamixEntities;
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.EdgeGrouper;
 import org.evolizer.da4java.graph.data.GraphLoader;
+import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.famix.model.entities.AbstractFamixEntity;
 
 import y.base.Node;
@@ -61,7 +61,7 @@ public class AddEntitiesCommand extends AbstractGraphAddCommand {
         setEditResult(new EditResult());
 
         if (!fEntities.isEmpty()) {
-            DependencyGraph graph = getGraphLoader().getGraph();
+            GraphManager graph = getGraphLoader().getGraph();
             fireGraphPreEvent();
 
             for (NodeCursor nc = graph.nodes(); nc.ok(); nc.next()) {
@@ -81,11 +81,11 @@ public class AddEntitiesCommand extends AbstractGraphAddCommand {
      * Open up selected, added entities.
      */
     private void expandToEntities() {
-        DependencyGraph graph = getGraphLoader().getGraph();
+        GraphManager graph = getGraphLoader().getGraph();
         for (AbstractFamixEntity entity : fEntities) {
             List<AbstractFamixEntity> parentEntities = getGraphLoader().getSnapshotAnalyzer().getParentEntities(entity);
             for (int i = parentEntities.size() - 1; i >= 0; i--) {
-                Node parentNode = graph.getNode(parentEntities.get(i));
+                Node parentNode = graph.getGraphModelMapper().getNode(parentEntities.get(i));
                 if (parentNode != null) {
                     GroupNodeRealizer gr = (GroupNodeRealizer) graph.getRealizer(parentNode);
                     if (gr.isGroupClosed()) {

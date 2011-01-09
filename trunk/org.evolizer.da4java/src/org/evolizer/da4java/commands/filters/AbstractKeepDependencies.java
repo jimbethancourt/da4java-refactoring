@@ -141,7 +141,7 @@ public abstract class AbstractKeepDependencies extends AbstractGraphFilterComman
     protected List<AbstractFamixEntity> getEntitiesToRemove() {
         Set<AbstractFamixEntity> remainingEntities = new HashSet<AbstractFamixEntity>();
 
-        AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(getSelectedNode());
+        AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(getSelectedNode());
 
         List<AbstractFamixEntity> descendants = getGraphLoader().getSnapshotAnalyzer().getDescendants(entity);
         remainingEntities.addAll(descendants);
@@ -153,7 +153,7 @@ public abstract class AbstractKeepDependencies extends AbstractGraphFilterComman
             remainingEntities.addAll(getGraphLoader().getSnapshotAnalyzer().getParentEntities(remainingEntity));
         }
 
-        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getAllFamixEntities());
+        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getGraphModelMapper().getAllFamixEntities());
         entitiesToRemove.removeAll(remainingEntities);
 
         return new ArrayList<AbstractFamixEntity>(entitiesToRemove);
