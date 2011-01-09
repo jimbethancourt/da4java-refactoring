@@ -22,7 +22,7 @@ import java.util.Set;
 
 import org.evolizer.core.exceptions.EvolizerException;
 import org.evolizer.core.util.collections.CompositeKey;
-import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.da4java.graph.panel.DA4JavaGraphPanel;
 import org.evolizer.da4java.polymetricviews.PolymetricViewControllerView;
 import org.evolizer.famix.model.entities.AbstractFamixEntity;
@@ -95,7 +95,7 @@ public class PolymetricViewDataContainer {
      */
     public void updateMetricValues(String metricIdentifier) throws EvolizerException {
         SnapshotAnalyzer snapshotAnalyzer = fGraphPanel.getGraphLoader().getSnapshotAnalyzer();
-        DependencyGraph graph = fGraphPanel.getGraph();
+        GraphManager graph = fGraphPanel.getGraph();
         NodeMap map = graph.getRegisteredNodeMaps()[0];
         Node[] nodes = graph.getNodeArray();
         for (int i = 0; i < nodes.length; i++) {

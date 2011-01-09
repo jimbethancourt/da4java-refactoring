@@ -22,7 +22,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.evolizer.da4java.DA4JavaPlugin;
-import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.DependencyGraphSingleton;
+import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.da4java.graph.panel.rendering.edgerenderer.DashedDeltaEdgeRealizer;
 import org.evolizer.da4java.graph.panel.rendering.edgerenderer.DefaultFamixEdgeRealizer;
 import org.evolizer.da4java.graph.panel.rendering.edgerenderer.DeltaEdgeRealizer;
@@ -70,13 +71,13 @@ public class FamixRealizerConfigurator implements PropertyChangeListener {
      * @param event The map change event
      */
     public void propertyChange(PropertyChangeEvent event) {
-        if (event.getPropertyName().equals(DependencyGraph.ENTITY_ADDED)) {
+        if (event.getPropertyName().equals(DependencyGraphSingleton.ENTITY_ADDED)) {
             Node node = (Node) event.getNewValue();
             configureNode(node);
             // } else if (graphEvent.getType() == DA4JavaGraphEvent.EDGE_CREATION_ASSOCIATION_SET) {
             // Edge edge = (Edge) graphEvent.getData();
             // configureEdge(edge);
-        } else if (event.getPropertyName().equals(DependencyGraph.HIGHLEVEL_EDGE_ADDED)) {
+        } else if (event.getPropertyName().equals(DependencyGraphSingleton.HIGHLEVEL_EDGE_ADDED)) {
             Edge edge = (Edge) event.getNewValue();
             configureHighLevelEdge(edge);
         } 
@@ -91,8 +92,8 @@ public class FamixRealizerConfigurator implements PropertyChangeListener {
      */
     private void configureNode(Node node) {
         Graph2D graph = (Graph2D) node.getGraph();
-        DependencyGraph rootGraph = (DependencyGraph) graph.getHierarchyManager().getRootGraph();
-        AbstractFamixEntity entity = rootGraph.getFamixEntity(node);
+        GraphManager rootGraph = (GraphManager) graph.getHierarchyManager().getRootGraph();
+        AbstractFamixEntity entity = rootGraph.getGraphModelMapper().getFamixEntity(node);
 
         NodeRealizer nr = graph.getRealizer(node);
         NodeRealizer newNodeRealizer = null;
@@ -116,9 +117,9 @@ public class FamixRealizerConfigurator implements PropertyChangeListener {
      */
     private void configureHighLevelEdge(Edge edge) {
         Graph2D graph = (Graph2D) edge.getGraph();
-        DependencyGraph rootGraph = (DependencyGraph) graph.getHierarchyManager().getRootGraph();
+        GraphManager rootGraph = (GraphManager) graph.getHierarchyManager().getRootGraph();
 
-        Class<? extends FamixAssociation> associationType = rootGraph.getEdgeType(edge);
+        Class<? extends FamixAssociation> associationType = rootGraph.getGraphModelMapper().getEdgeType(edge);
         EdgeRealizer er = graph.getRealizer(edge);
         EdgeRealizer newEdgeRealizer = null;
         if (associationType.equals(FamixInvocation.class)) {
@@ -138,7 +139,7 @@ public class FamixRealizerConfigurator implements PropertyChangeListener {
             newEdgeRealizer = new DefaultFamixEdgeRealizer(er);
         }
 
-        List<Edge> lowLevelEdges = rootGraph.getLowLevelEdges(edge);
+        List<Edge> lowLevelEdges = rootGraph.getGraphModelMapper().getLowLevelEdges(edge);
         int nrLowLevelEdges = 1;
         if (lowLevelEdges != null) {
             nrLowLevelEdges = lowLevelEdges.size();

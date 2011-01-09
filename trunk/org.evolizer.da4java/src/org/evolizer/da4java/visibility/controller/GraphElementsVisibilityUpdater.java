@@ -120,7 +120,7 @@ public class GraphElementsVisibilityUpdater implements PropertyChangeListener, G
     private void updateEntityTypeVisibility(NodeCursor parentNodes, boolean hide) {
         for (NodeCursor nc = parentNodes; nc.ok(); nc.next()) {
             Node parentNode = nc.node();
-            AbstractFamixEntity entity = fPanel.getGraph().getFamixEntity(parentNode);
+            AbstractFamixEntity entity = fPanel.getGraph().getGraphModelMapper().getFamixEntity(parentNode);
             if (!hide && fPanel.getViewConfigModel().getEntityTypeVisibility().get(entity.getClass()).booleanValue()) {
                 NodeRealizer parentRealizer = fPanel.getGraph().getRealizer(parentNode);
                 parentRealizer.setVisible(true);
@@ -144,20 +144,20 @@ public class GraphElementsVisibilityUpdater implements PropertyChangeListener, G
      */
     private void updateAssociationTypeVisibility() {
         for (Edge edge : fPanel.getGraph().getEdgeArray()) {
-            Class<? extends FamixAssociation> associationType = fPanel.getGraph().getEdgeType(edge);
+            Class<? extends FamixAssociation> associationType = fPanel.getGraph().getGraphModelMapper().getEdgeType(edge);
             EdgeRealizer edgeRealizer = fPanel.getGraph().getRealizer(edge);
             if (fPanel.getViewConfigModel().getAssociationTypeVisibility().get(associationType).booleanValue()) {
                 // check whether from and to node are also visible
                 // if edge is an aggregated edge then check if the source and target node of the first lower level edge are visible
-                List<Edge> lowLevelEdges = fPanel.getGraph().getLowLevelEdges(edge);
+                List<Edge> lowLevelEdges = fPanel.getGraph().getGraphModelMapper().getLowLevelEdges(edge);
                 FamixAssociation association;
                 if (lowLevelEdges != null && lowLevelEdges.size() > 0) {
-                    association = fPanel.getGraph().getAssociation(lowLevelEdges.get(0));
+                    association = fPanel.getGraph().getGraphModelMapper().getAssociation(lowLevelEdges.get(0));
                 } else {
-                    association = fPanel.getGraph().getAssociation(edge);
+                    association = fPanel.getGraph().getGraphModelMapper().getAssociation(edge);
                 }
-                NodeRealizer fromRealizer = fPanel.getGraph().getRealizer(fPanel.getGraph().getNode(association.getFrom()));
-                NodeRealizer toRealizer = fPanel.getGraph().getRealizer(fPanel.getGraph().getNode(association.getTo()));
+                NodeRealizer fromRealizer = fPanel.getGraph().getRealizer(fPanel.getGraph().getGraphModelMapper().getNode(association.getFrom()));
+                NodeRealizer toRealizer = fPanel.getGraph().getRealizer(fPanel.getGraph().getGraphModelMapper().getNode(association.getTo()));
                 if (fromRealizer != null && toRealizer != null) {
                     if (fromRealizer.isVisible() && toRealizer.isVisible()) {
                         edgeRealizer.setVisible(true);

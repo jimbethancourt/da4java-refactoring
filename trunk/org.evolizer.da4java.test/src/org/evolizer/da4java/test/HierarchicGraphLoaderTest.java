@@ -37,7 +37,7 @@ import org.evolizer.da4java.commands.CommandController;
 import org.evolizer.da4java.commands.additions.AddEntitiesCommand;
 import org.evolizer.da4java.commands.additions.AddEntitiesViaInDependenciesCommand;
 import org.evolizer.da4java.commands.additions.AddEntitiesViaOutDependenciesCommand;
-import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.da4java.graph.panel.DA4JavaGraphPanel;
 import org.evolizer.da4java.plugin.DA4JavaEditorInput;
 import org.evolizer.da4java.plugin.DA4JavaGraphEditor;
@@ -166,7 +166,8 @@ public class HierarchicGraphLoaderTest {
     public void checkClassPlanet() {
         showClassPlanet();
         
-        DependencyGraph graph = fGraphPanel.getGraph();
+        GraphManager graph = fGraphPanel.getGraph();
+        
         org.evolizer.famix.model.entities.FamixPackage thebigvoidPackage = new org.evolizer.famix.model.entities.FamixPackage("thebigvoid", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + thebigvoidPackage.getUniqueName(), graph.contains(thebigvoidPackage));
         org.evolizer.famix.model.entities.FamixClass planetClass = new org.evolizer.famix.model.entities.FamixClass("thebigvoid.Planet", null);
@@ -178,11 +179,11 @@ public class HierarchicGraphLoaderTest {
         org.evolizer.famix.model.entities.FamixAttribute color = new org.evolizer.famix.model.entities.FamixAttribute("thebigvoid.Planet.color", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + color.getUniqueName(), graph.contains(color));
 
-        Node thebigvoidPackageNode = graph.getNode(thebigvoidPackage);
-        Node planetClassNode = graph.getNode(planetClass);
-        Node planetConstructorNode = graph.getNode(planetContstructor);
-        Node getColorNode = graph.getNode(getColor);
-        Node colorNode = graph.getNode(color);
+        Node thebigvoidPackageNode = graph.getGraphModelMapper().getNode(thebigvoidPackage);
+        Node planetClassNode = graph.getGraphModelMapper().getNode(planetClass);
+        Node planetConstructorNode = graph.getGraphModelMapper().getNode(planetContstructor);
+        Node getColorNode = graph.getGraphModelMapper().getNode(getColor);
+        Node colorNode = graph.getGraphModelMapper().getNode(color);
         Assert.assertNull("Parent node of " + thebigvoidPackageNode + " has to be null", graph.getHierarchyManager().getParentNode(thebigvoidPackageNode));
         Assert.assertEquals("Parent node of " + planetClassNode + " has to be " + thebigvoidPackageNode, thebigvoidPackageNode, graph.getHierarchyManager().getParentNode(planetClassNode));
         Assert.assertEquals("Parent node of " + planetConstructorNode + " has to be " + planetClassNode, planetClassNode, graph.getHierarchyManager().getParentNode(planetConstructorNode));
@@ -209,7 +210,7 @@ public class HierarchicGraphLoaderTest {
                 fGraphPanel.getEdgeGrouper());
         command.execute();
 
-        DependencyGraph graph = fGraphPanel.getGraph();
+        GraphManager graph = fGraphPanel.getGraph();
 
         org.evolizer.famix.model.entities.FamixClass planetClass = new org.evolizer.famix.model.entities.FamixClass("thebigvoid.Planet", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + planetClass.getUniqueName(), graph.contains(planetClass));
@@ -223,9 +224,9 @@ public class HierarchicGraphLoaderTest {
         Assert.assertTrue("Command should add class " + galaxyClass, command.getEditedEntities().contains(galaxyClass));
         Assert.assertTrue("Command should add method " + galaxyContstructor, command.getEditedEntities().contains(galaxyContstructor));
 
-        Node planetClassNode = graph.getNode(planetClass);
-        Node galaxyClassNode = graph.getNode(galaxyClass);
-        Node galaxyConstructorNode = graph.getNode(galaxyContstructor);
+        Node planetClassNode = graph.getGraphModelMapper().getNode(planetClass);
+        Node galaxyClassNode = graph.getGraphModelMapper().getNode(galaxyClass);
+        Node galaxyConstructorNode = graph.getGraphModelMapper().getNode(galaxyContstructor);
         Assert.assertEquals("Parent node of " + galaxyConstructorNode + " has to be " + galaxyClassNode, galaxyClassNode, graph.getHierarchyManager().getParentNode(galaxyConstructorNode));
 
         Edge invocation = galaxyClassNode.getEdge(planetClassNode);
@@ -236,7 +237,7 @@ public class HierarchicGraphLoaderTest {
     public void addIncomingInvocationsToPlanet() {
         showClassPlanet();
 
-        DependencyGraph graph = fGraphPanel.getGraph();
+        GraphManager graph = fGraphPanel.getGraph();
         org.evolizer.famix.model.entities.FamixPackage thebigvoidPackage = new org.evolizer.famix.model.entities.FamixPackage("thebigvoid", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + thebigvoidPackage.getUniqueName(), graph.contains(thebigvoidPackage));
         org.evolizer.famix.model.entities.FamixClass planetClass = new org.evolizer.famix.model.entities.FamixClass("thebigvoid.Planet", null);
@@ -244,8 +245,8 @@ public class HierarchicGraphLoaderTest {
         org.evolizer.famix.model.entities.FamixMethod planetContstructor = new org.evolizer.famix.model.entities.FamixMethod("thebigvoid.Planet.<init>(java.lang.String,java.awt.Color)", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + planetContstructor.getUniqueName(), graph.contains(planetContstructor));
 
-        Node thebigvoidPackageNode = graph.getNode(thebigvoidPackage);
-        Node planetClassNode = graph.getNode(planetClass);
+        Node thebigvoidPackageNode = graph.getGraphModelMapper().getNode(thebigvoidPackage);
+        Node planetClassNode = graph.getGraphModelMapper().getNode(planetClass);
         //		Node planetConstructorNode = graph.getNode(planetContstructor);
         Assert.assertEquals(thebigvoidPackageNode + " node should have 1 child nodes before adding the associations", 1, graph.getHierarchyManager().getChildren(thebigvoidPackageNode).size());
 
@@ -260,8 +261,8 @@ public class HierarchicGraphLoaderTest {
         Assert.assertTrue("Graph must contain FAMIX entity " + galaxyClass.getUniqueName(), graph.contains(galaxyClass));
         org.evolizer.famix.model.entities.FamixMethod galaxyContstructor = new org.evolizer.famix.model.entities.FamixMethod("thebigvoid.Galaxy.<init>(java.lang.String)", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + galaxyContstructor.getUniqueName(), graph.contains(galaxyContstructor));
-        Node galaxyClassNode = graph.getNode(galaxyClass);
-        Node galaxyConstructorNode = graph.getNode(galaxyContstructor);
+        Node galaxyClassNode = graph.getGraphModelMapper().getNode(galaxyClass);
+        Node galaxyConstructorNode = graph.getGraphModelMapper().getNode(galaxyContstructor);
 
         //		fGraphPanel.getHierarchicEdgeGrouper().handleOpenFolder(planetClassNode);
         //		fGraphPanel.getHierarchicEdgeGrouper().handleOpenFolder(galaxyClassNode);
@@ -279,7 +280,7 @@ public class HierarchicGraphLoaderTest {
     public void addOutgoingAllDependenciesFromPlanet() {
         showClassPlanet();
 
-        DependencyGraph graph = fGraphPanel.getGraph();
+        GraphManager graph = fGraphPanel.getGraph();
         org.evolizer.famix.model.entities.FamixPackage thebigvoidPackage = new org.evolizer.famix.model.entities.FamixPackage("thebigvoid", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + thebigvoidPackage.getUniqueName(), graph.contains(thebigvoidPackage));
         org.evolizer.famix.model.entities.FamixClass planetClass = new org.evolizer.famix.model.entities.FamixClass("thebigvoid.Planet", null);
@@ -287,8 +288,8 @@ public class HierarchicGraphLoaderTest {
         org.evolizer.famix.model.entities.FamixMethod planetContstructor = new org.evolizer.famix.model.entities.FamixMethod("thebigvoid.Planet.<init>(java.lang.String,java.awt.Color)", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + planetContstructor.getUniqueName(), graph.contains(planetContstructor));
 
-        Node thebigvoidPackageNode = graph.getNode(thebigvoidPackage);
-        Node planetClassNode = graph.getNode(planetClass);
+        Node thebigvoidPackageNode = graph.getGraphModelMapper().getNode(thebigvoidPackage);
+        Node planetClassNode = graph.getGraphModelMapper().getNode(planetClass);
         //		Node planetConstructorNode = graph.getNode(planetContstructor);
         AbstractGraphEditCommand command = new AddEntitiesViaOutDependenciesCommand(
                 planetClassNode, 
@@ -301,8 +302,8 @@ public class HierarchicGraphLoaderTest {
         Assert.assertTrue("Graph must contain FAMIX entity " + stellarObjectClass.getUniqueName(), graph.contains(stellarObjectClass));
         org.evolizer.famix.model.entities.FamixAttribute stellarObjectName = new org.evolizer.famix.model.entities.FamixAttribute("thebigvoid.StellarObject.name", null);
         Assert.assertTrue("Graph must contain FAMIX entity " + stellarObjectName.getUniqueName(), graph.contains(stellarObjectName));
-        Node stellarObjectClassNode = graph.getNode(stellarObjectClass);
-        Node stellarObjectNameNode = graph.getNode(stellarObjectName);
+        Node stellarObjectClassNode = graph.getGraphModelMapper().getNode(stellarObjectClass);
+        Node stellarObjectNameNode = graph.getGraphModelMapper().getNode(stellarObjectName);
 
         Assert.assertEquals("Parent node of " + stellarObjectClassNode + " has to be " + thebigvoidPackageNode, thebigvoidPackageNode, graph.getHierarchyManager().getParentNode(stellarObjectClassNode));
         Assert.assertEquals("Parent node of " + stellarObjectNameNode + " has to be " + stellarObjectClassNode, stellarObjectClassNode, graph.getHierarchyManager().getParentNode(stellarObjectNameNode));

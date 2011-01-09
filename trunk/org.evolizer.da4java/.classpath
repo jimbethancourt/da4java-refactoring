@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins">
 		<accessrules>
 			<accessrule kind="accessible" pattern="seal/dependencyanalyzer/integrator/*"/>
@@ -21,5 +21,21 @@
 	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-svg.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/freehep-graphicsio-swf.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.2.jar" sourcepath="org.evolizer.da4javasrc.zip"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.core"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.core.hibernate"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.core.logging"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.core.ui"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.core.util"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.famix.importer"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.famix.importer.test"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.famix.importer.ui"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.famix.metrics"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.famix.metrics.test"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.famix.model"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.metrics"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.metrics.model"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.metrics.model.test"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.metrics.test"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.evolizer.model.resources"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
