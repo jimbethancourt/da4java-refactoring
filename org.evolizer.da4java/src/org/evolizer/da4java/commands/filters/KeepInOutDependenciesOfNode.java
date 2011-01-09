@@ -61,13 +61,13 @@ public class KeepInOutDependenciesOfNode extends AbstractKeepDependencies {
     protected List<AbstractFamixEntity> getDependentEntities() {
         Set<AbstractFamixEntity> dependentEntities = new HashSet<AbstractFamixEntity>();
 
-        AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(getSelectedNode());
+        AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(getSelectedNode());
         List<AbstractFamixEntity> descendants = getGraphLoader().getSnapshotAnalyzer().getDescendants(entity);
 
         List<FamixAssociation> associationsToOtherEntities = (List<FamixAssociation>) getGraphLoader().getSnapshotAnalyzer().queryAssociationsOfEntities(descendants, getAssociationType(), "from");
         associationsToOtherEntities.addAll((List<FamixAssociation>) getGraphLoader().getSnapshotAnalyzer().queryAssociationsOfEntities(descendants, getAssociationType(), "to"));
         for (FamixAssociation association : associationsToOtherEntities) {
-            Edge edge = getGraphLoader().getGraph().getEdge(association);
+            Edge edge = getGraphLoader().getGraph().getGraphModelMapper().getEdge(association);
             if (edge != null) {
                 AbstractFamixEntity dependentEntity = null;
                 if (descendants.contains(association.getFrom())) {

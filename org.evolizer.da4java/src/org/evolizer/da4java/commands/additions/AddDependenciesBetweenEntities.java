@@ -107,7 +107,7 @@ public class AddDependenciesBetweenEntities extends AbstractGraphAddCommand {
     protected Set<AbstractFamixEntity> getEntitiesToAdd() {
         Set<AbstractFamixEntity> entitiesToAdd = new HashSet<AbstractFamixEntity>();
 
-        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getFamixEntities(fSelectedNodes);
+        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntities(fSelectedNodes);
 
         List<? extends FamixAssociation> allAssociations = getGraphLoader().getSnapshotAnalyzer().getAssociationsBetweenParentEntities(entities, fAssociationType);
         entitiesToAdd.addAll(getGraphLoader().getListOfNotContainedEntities(allAssociations));
@@ -123,7 +123,7 @@ public class AddDependenciesBetweenEntities extends AbstractGraphAddCommand {
     protected Set<FamixAssociation> getAssociationsToAdd() {
         Set<FamixAssociation> associationsToAdd = new HashSet<FamixAssociation>();
 
-        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getFamixEntities(fSelectedNodes);
+        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntities(fSelectedNodes);
         associationsToAdd.addAll(getGraphLoader().getSnapshotAnalyzer().getAssociationsBetweenParentEntities(entities, fAssociationType));
 
         return associationsToAdd;

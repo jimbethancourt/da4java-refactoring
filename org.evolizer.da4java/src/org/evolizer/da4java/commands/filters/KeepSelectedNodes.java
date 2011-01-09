@@ -70,7 +70,7 @@ public class KeepSelectedNodes extends AbstractGraphFilterCommand {
      */
     public void execute() {
         setEditResult(new EditResult());
-        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getFamixEntities(fSelectedNodes);
+        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntities(fSelectedNodes);
 
         if (!entities.isEmpty()) {
             Set<AbstractFamixEntity> entitiesToRemove = getEntitiesToRemove(); 
@@ -113,7 +113,7 @@ public class KeepSelectedNodes extends AbstractGraphFilterCommand {
      * @return the entities to remove
      */
     protected Set<AbstractFamixEntity> getEntitiesToRemove() {
-        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getFamixEntities(fSelectedNodes);
+        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntities(fSelectedNodes);
 
         Set<AbstractFamixEntity> remainingEntities = new HashSet<AbstractFamixEntity>();
         for (AbstractFamixEntity entity : entities) {
@@ -123,7 +123,7 @@ public class KeepSelectedNodes extends AbstractGraphFilterCommand {
             }
         }
 
-        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getAllFamixEntities());
+        Set<AbstractFamixEntity> entitiesToRemove = new HashSet<AbstractFamixEntity>(getGraphLoader().getGraph().getGraphModelMapper().getAllFamixEntities());
         entitiesToRemove.removeAll(remainingEntities);
 
         return entitiesToRemove;
@@ -135,7 +135,7 @@ public class KeepSelectedNodes extends AbstractGraphFilterCommand {
      * @return the associations to remove
      */
     protected Set<FamixAssociation> getAssociationsToRemove() {
-        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getFamixEntities(fSelectedNodes);
+        List<AbstractFamixEntity> entities = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntities(fSelectedNodes);
 
         Set<FamixAssociation> associationsToRemove = new HashSet<FamixAssociation>(); 
         if (fAssociationType != null) {

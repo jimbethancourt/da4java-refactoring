@@ -70,7 +70,7 @@ public class AddEntitiesViaInOutDependenciesCommand extends AbstractGraphAddComm
             getEdgeGrouper().reinsertLowLevelEdges(nc.node());
         }
 
-        AbstractFamixEntity entity = getGraphLoader().getGraph().getFamixEntity(fSelectedNode);
+        AbstractFamixEntity entity = getGraphLoader().getGraph().getGraphModelMapper().getFamixEntity(fSelectedNode);
         setEditResult(getGraphLoader().addDependentEntitiesAndAssociations(entity, fAssociationType, "to"));
         getEditResult().addAll(getGraphLoader().addDependentEntitiesAndAssociations(entity, fAssociationType, "from"));
         getEdgeGrouper().groupAll();

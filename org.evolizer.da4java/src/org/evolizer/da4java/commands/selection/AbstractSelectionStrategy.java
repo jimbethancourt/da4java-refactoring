@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
-import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.GraphManager;
 
 import y.base.Edge;
 import y.base.Node;
@@ -68,7 +68,7 @@ public abstract class AbstractSelectionStrategy {
      * Update the selection.
      */
     public void updateSelection() {
-        DependencyGraph graph = getCommand().getGraphLoader().getGraph();
+        GraphManager graph = getCommand().getGraphLoader().getGraph();
 
         graph.unselectAll();
         for (Node node : getNodesToSelect()) {
