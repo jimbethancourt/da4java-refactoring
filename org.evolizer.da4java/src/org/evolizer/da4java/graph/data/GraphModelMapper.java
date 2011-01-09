@@ -32,6 +32,10 @@ public class GraphModelMapper extends Graph2D {
     private static Logger sLogger = DA4JavaPlugin.getLogManager().getLogger(GraphModelMapper.class.getName());
     
     public GraphModelMapper() {
+    	createNodeMap(); // node to FAMIX entity map
+        createEdgeMap(); // edge to FAMIX association map
+        createEdgeMap(); // high level to low level edges map
+    	
     	fFamixToNodeMap = new HashMap<AbstractFamixEntity, Node>();
         fFamixToEdgeMap = new HashMap<FamixAssociation, Edge>();
     }
