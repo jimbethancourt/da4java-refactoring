@@ -103,8 +103,4 @@ public class getUniqueNameFromJavaElementTest {
 		
 		assertEquals(JavaElementUtilities.getUniqueNameFromJavaElement(field), "foo" + "." + "field");
 	}
-	
-	
-	
-
 }
