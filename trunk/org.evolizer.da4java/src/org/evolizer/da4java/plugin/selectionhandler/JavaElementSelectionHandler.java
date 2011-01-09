@@ -127,7 +127,7 @@ public class JavaElementSelectionHandler extends AbstractSelectionHandler {
         for (IJavaElement element : javaElements) {
             if (element instanceof IMethod) {
                 try {
-                    sourceReferences.put(getUniqueNameFromJavaElement(element), ((IMethod) element).getSourceRange().getOffset());
+                    sourceReferences.put(JavaElementUtilities.getUniqueNameFromJavaElement(element), ((IMethod) element).getSourceRange().getOffset());
                 } catch (JavaModelException jme) {
                     throw new EvolizerRuntimeException("Error determining source range of Java element " + element.getElementName(), jme);
                 }
@@ -151,65 +151,10 @@ public class JavaElementSelectionHandler extends AbstractSelectionHandler {
         List<String> names = new ArrayList<String>();
         for (IJavaElement element : javaElements) {
             if (!(element instanceof IMethod)) {
-                names.add(getUniqueNameFromJavaElement(element));
+                names.add(JavaElementUtilities.getUniqueNameFromJavaElement(element));
             }
         }
         return names;
     }
 
-    /**
-     * Gets the FAMIX model conform unique name for the given Java element.
-     * Currently the method supports:
-     * <ul>
-     * <li>{@link IPackageFragment}</li>
-     * <li>{@link ICompilationUnit}</li>
-     * <li>{@link IType}</li>
-     * <li>{@link IMethod}</li>
-     * <li>{@link IField}</li>
-     * </ul>
-     * 
-     * @param element the Java element
-     * 
-     * @return the FAMIX conform unique name
-     * 
-     * @throws JavaModelException the java model exception
-     */
-    private String getUniqueNameFromJavaElement(IJavaElement element) throws EvolizerRuntimeException {
-        String uniqueName = "";
-        try {
-            if (element instanceof IPackageFragment) {
-                uniqueName = element.getElementName();
-                if (uniqueName.equals("") && ((IPackageFragment) element).containsJavaResources()) {
-                    uniqueName = AbstractFamixEntity.DEFAULT_PACKAGE_NAME;
-                }
-            } else if (element instanceof ICompilationUnit) {
-                // String compilationUnitName = element.getElementName();
-                // uniqueName = element.getParent().getElementName() + "."
-                // + compilationUnitName.substring(0, compilationUnitName.lastIndexOf('.'));
-                IType primaryType = ((ICompilationUnit) element).findPrimaryType();
-                uniqueName = primaryType.getFullyQualifiedName();
-            } else if (element instanceof IType) {
-                uniqueName = ((IType) element).getFullyQualifiedName();
-            } else if (element instanceof IMethod) {
-                IMethod method = (IMethod) element;
-                uniqueName = method.getDeclaringType().getFullyQualifiedName();
-                if (method.isConstructor()) {
-                    uniqueName += "." + AbstractFamixEntity.CONSTRUCTOR_PREFIX;
-                } else {
-                    uniqueName += "." + method.getElementName();
-                }
-            } else if (element instanceof IField) {
-                IType declaringType = ((IField) element).getDeclaringType();
-                uniqueName = declaringType.getFullyQualifiedName() + "." + element.getElementName(); 
-            } else {
-                sLogger.error("Element type not supported " + element.getElementType());
-                throw new EvolizerRuntimeException("Element type not supported " + element.getElementType());
-            }
-        } catch (JavaModelException jme) {
-            sLogger.error("Error determining FAMIX type of Java element " + element.getElementName(), jme);
-            throw new EvolizerRuntimeException("Error determining FAMIX type of Java element " + element.getElementName(), jme);
-        }
-
-        return uniqueName;
-    }
 }
