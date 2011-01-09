@@ -25,7 +25,8 @@ import org.apache.log4j.Logger;
 import org.evolizer.da4java.DA4JavaPlugin;
 import org.evolizer.da4java.commands.AbstractGraphEditCommand;
 import org.evolizer.da4java.commands.selection.AbstractSelectionStrategy;
-import org.evolizer.da4java.graph.data.DependencyGraph;
+import org.evolizer.da4java.graph.data.DependencyGraphSingleton;
+import org.evolizer.da4java.graph.data.GraphManager;
 
 import y.base.Edge;
 import y.base.EdgeCursor;
@@ -139,9 +140,9 @@ public class GraphReLayouter implements GraphListener, PropertyChangeListener {
      */
     public void propertyChange(final PropertyChangeEvent event) {
 //        sLogger.info("Received property change event " + event.getPropertyName());
-        if (event.getPropertyName().equals(DependencyGraph.LAYOUT_MODULE_CHANGED)) {
+        if (event.getPropertyName().equals(DependencyGraphSingleton.LAYOUT_MODULE_CHANGED)) {
             refreshLayout(true, null, null);
-        } else if (event.getPropertyName().equals(DependencyGraph.NODE_SIZE_CHANGED)) {
+        } else if (event.getPropertyName().equals(DependencyGraphSingleton.NODE_SIZE_CHANGED)) {
             refreshLayout(true, null, null);
         }
     }
@@ -160,7 +161,7 @@ public class GraphReLayouter implements GraphListener, PropertyChangeListener {
         //        try {
         // fToolbar.updateUndoRedoButtons(fCommandController.canUndo(),fCommandController.canRedo());
         // getGraphElementsVisibilityController().updateGraphElementsVisibility();
-        final DependencyGraph graph = (DependencyGraph) fGraphView.getGraph2D();
+        final GraphManager graph = (GraphManager) fGraphView.getGraph2D();
         if (doLayout) {
             final LayoutModule layoutModule = graph.getLayoutModule();
 

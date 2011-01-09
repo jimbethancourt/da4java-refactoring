@@ -23,9 +23,9 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.evolizer.da4java.commands.CommandController;
-import org.evolizer.da4java.graph.data.DependencyGraph;
 import org.evolizer.da4java.graph.data.EdgeGrouper;
 import org.evolizer.da4java.graph.data.GraphLoader;
+import org.evolizer.da4java.graph.data.GraphManager;
 import org.evolizer.da4java.graph.panel.rendering.FamixRealizerConfigurator;
 import org.evolizer.da4java.graph.panel.rendering.GraphReLayouter;
 import org.evolizer.da4java.graph.panel.toolbar.DA4JavaToolbar;
@@ -74,7 +74,7 @@ public class DA4JavaGraphPanel extends JPanel {
     private CommandController fCommandController;
 
     /** The depencency graph. */
-    private DependencyGraph fDependencyGraph;
+    private GraphManager fGraph;
     
     /** The graph loader. */
     private GraphLoader fGraphLoader;
@@ -96,7 +96,7 @@ public class DA4JavaGraphPanel extends JPanel {
     public DA4JavaGraphPanel(GraphLoader graphLoader) {
         fGraphLoader = graphLoader;
         fCommandController = new CommandController();
-        fDependencyGraph = new DependencyGraph();
+        fGraph = new GraphManager();
 
         fViewConfigModel = new ViewConfigModel();
         fPolymetricViewDataCollector = new PolymetricViewDataContainer(this);
@@ -106,11 +106,11 @@ public class DA4JavaGraphPanel extends JPanel {
      * Initialize the graph panel.
      */
     public void initGraphPanel() {
-        fGraphLoader.initGraph(fDependencyGraph);
+        fGraphLoader.initGraph(fGraph);
 
-        fGraphView = new Graph2DView(fDependencyGraph);
+        fGraphView = new Graph2DView(fGraph);
         fGraphView.setAntialiasedPainting(true);
-        fDependencyGraph.registerView(fGraphView);
+        fGraph.registerView(fGraphView);
 
         initGraphLayout();
         registerViewModes();
@@ -122,7 +122,7 @@ public class DA4JavaGraphPanel extends JPanel {
         add(fToolbar, BorderLayout.NORTH);
         add(fGraphView, BorderLayout.CENTER);
 
-        fEdgeGrouper = new EdgeGrouper(fDependencyGraph);
+        fEdgeGrouper = new EdgeGrouper(fGraph);
         fEdgeGrouper.groupAll();
     }
 
@@ -149,24 +149,24 @@ public class DA4JavaGraphPanel extends JPanel {
         // The plan is to use the GraphListener and maybe also the HierarchyListener to listen 
         // to structural changes in the graph. This could be use to decide when graphs need to
         // be re-layout and to control the layout (i.e., only layout the changed parts of the graph)
-        fDependencyGraph.addPropertyChangeListener(new FamixRealizerConfigurator());
+        fGraph.addPropertyChangeListener(new FamixRealizerConfigurator());
         getHierarchyManager().addHierarchyListener(new GroupNodeRealizer.StateChangeListener());
 
         // init the graph visibility updater
         GraphElementsVisibilityUpdater visibilityUpdater = new GraphElementsVisibilityUpdater(this);
-        fDependencyGraph.addGraphListener(visibilityUpdater);        // listen to graph events
+        fGraph.addGraphListener(visibilityUpdater);        // listen to graph events
         fViewConfigModel.addPropertyChangeListener(visibilityUpdater); // listen to changes in the view config model
 
         // init the polymetric view graph updater
         PolymetricViewGraphUpdater polyViewGraphUpdater = new PolymetricViewGraphUpdater(this);
-        fDependencyGraph.addGraphListener(polyViewGraphUpdater);        // listen to graph events
+        fGraph.addGraphListener(polyViewGraphUpdater);        // listen to graph events
         fViewConfigModel.addPropertyChangeListener(polyViewGraphUpdater); // listen to changes in the view config model
 
         // re-layouter should be notified as last element
         GraphReLayouter graphLayouter = new GraphReLayouter(fGraphView);
-        fDependencyGraph.addGraphListener(graphLayouter);
-//        fDependencyGraph.addGraph2DListener(graphLayouter);
-        fDependencyGraph.addPropertyChangeListener(graphLayouter);
+        fGraph.addGraphListener(graphLayouter);
+//        fGraph.addGraph2DListener(graphLayouter);
+        fGraph.addPropertyChangeListener(graphLayouter);
         fCommandController.addPropertyChangeListener(graphLayouter);
 
         // propagates text label changes on nodes as change events
@@ -206,7 +206,7 @@ public class DA4JavaGraphPanel extends JPanel {
         // orthogonalLayoutModule.setBufferedMode(true);
         // fLayoutModules.put("Orthogonal", orthogonalLayoutModule);
 
-        fDependencyGraph.initLayoutModule(incrementalHierarchicLayoutModule);
+        fGraph.initLayoutModule(incrementalHierarchicLayoutModule);
     }
 
     /**
@@ -263,12 +263,12 @@ public class DA4JavaGraphPanel extends JPanel {
         HierarchyEditMode mode = new HierarchyEditMode() {
             @Override
             protected String getEdgeTip(Edge edge) {
-                return fDependencyGraph.getEdgeTip(edge);
+                return fGraph.getEdgeTip(edge);
             }
 
             @Override
             protected String getNodeTip(Node node) {
-                return fDependencyGraph.getNodeTip(node);
+                return fGraph.getNodeTip(node);
             }
         };
 
@@ -290,8 +290,8 @@ public class DA4JavaGraphPanel extends JPanel {
      * 
      * @return The graph
      */
-    public DependencyGraph getGraph() {
-        return fDependencyGraph;
+    public GraphManager getGraph() {
+        return fGraph;
     }
 
     /**
